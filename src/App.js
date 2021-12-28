@@ -21,15 +21,17 @@ function App() {
 
 		try {
 			const resp = await axios(options);
-			const transformedMovies = resp.data.results.map((movie) => {
-				return {
-					id: movie.episode_id,
-					title: movie.title,
-					openingText: movie.opening_crawl,
-					releaseDate: movie.release_date,
-				};
-			});
-			setMovies(transformedMovies);
+			const loadedMovies = [];
+			for (const key in resp.data) {
+				loadedMovies.push({
+					id: key,
+					title: resp.data[key].title,
+					openingText: resp.data[key].openingText,
+					releaseDate: resp.data[key].releaseDate,
+				});
+			}
+
+			setMovies(loadedMovies);
 		} catch (err) {
 			setError(err.message);
 		}
