@@ -16,7 +16,7 @@ function App() {
 		setError(null);
 
 		const options = {
-			url: "https://swapi.dev/api/films/",
+			url: "https://starwarsmovies-6c935-default-rtdb.firebaseio.com/movies.json",
 		};
 
 		try {
@@ -40,7 +40,15 @@ function App() {
 		fetchMoviesHandler();
 	}, [fetchMoviesHandler]);
 
-	const addMovieHandler = () => {};
+	const addMovieHandler = async (movie) => {
+		const options = {
+			url: "https://starwarsmovies-6c935-default-rtdb.firebaseio.com/movies.json",
+			data: JSON.stringify(movie),
+			method: "POST",
+		};
+		const resp = await axios(options);
+		console.log(resp.data);
+	};
 
 	let content = <p>Found no movies.</p>;
 
